@@ -1,7 +1,7 @@
 import { FC, useCallback } from 'react';
 import {
   Button,
-  Col, Image, Modal, Popconfirm, Row, message,
+  Col, Image, Popconfirm, Row, message,
 } from 'antd';
 import styled from 'styled-components';
 import { DownloadOutlined } from '@ant-design/icons';
@@ -10,14 +10,18 @@ import domtoimage from 'dom-to-image';
 import { Preview } from '../../Preview';
 import { useChapterCardContext } from '../../../contexts';
 import { useDesigns } from '../../../hooks';
+import { CustomModal } from './modal.styled';
 
 const CustomCol = styled(Col)`
   padding-top: 25px;
+  text-align: center;
+
   strong {
     font-size: 20px;
   }
   div {
     font-size: 16px;
+    opacity: 0.85;
   }
 `;
 
@@ -62,7 +66,7 @@ const PreviewCadModal: FC<PreviewCadModalInterface> = ({ cardId }) => {
   };
 
   return (
-    <Modal
+    <CustomModal
       title="Preview Card"
       okText={(
         <>
@@ -71,7 +75,7 @@ const PreviewCadModal: FC<PreviewCadModalInterface> = ({ cardId }) => {
           <DownloadOutlined />
         </>
       )}
-      width={1000}
+      width={1200}
       destroyOnClose
       open={showPreviewModal}
       onOk={onOk}
@@ -184,7 +188,7 @@ const PreviewCadModal: FC<PreviewCadModalInterface> = ({ cardId }) => {
           </Row>
         </Col>
       </Row>
-    </Modal>
+    </CustomModal>
   );
 };
 

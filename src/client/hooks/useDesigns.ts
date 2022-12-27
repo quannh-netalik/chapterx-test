@@ -1,47 +1,36 @@
 import { useCallback, useEffect, useState } from 'react';
-import { TCard } from '../types';
-
-const mocks: TCard[] = [
-  {
-    id: 1,
-    email: 'leongaban@gmail.com',
-    firstName: 'Leon',
-    lastName: 'Gaban',
-    image: 'https://res.cloudinary.com/dtgfpjvoi/image/upload/v1664896667/cards/profile_leongaban.png',
-    telegram: 'leongaban',
-    company: 'MoonHoldings',
-    title: 'Founder',
-    profile: 'https://chapterx.network/leongaban',
-  },
-  {
-    id: 2,
-    email: 'leongaban@gmail.com',
-    firstName: 'Leon',
-    lastName: 'Gaban',
-    image: 'https://res.cloudinary.com/dtgfpjvoi/image/upload/v1664896667/cards/profile_leongaban.png',
-    telegram: 'leongaban',
-    company: 'MoonHoldings',
-    title: 'Founder',
-    profile: 'https://chapterx.network/leongaban',
-  },
-];
+import { CreateDesign, TCard } from '../types';
+import config from '../config';
 
 type UseDesignType = {
   list: TCard[];
   getList: () => Promise<TCard[]>;
+  createDesign: (_data: CreateDesign) => Promise<TCard>;
 }
 
 const useDesigns = (): UseDesignType => {
   const [list, setList] = useState<TCard[]>([]);
 
+  const createDesign = useCallback(
+    async (data: CreateDesign) => fetch(config.api.designs, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).then((result): Promise<TCard> => result.json()),
+    [],
+  );
+
   // fetch data from server
-  const getList = useCallback(async () => mocks, []);
+  const getList = useCallback(
+    async () => fetch(config.api.designs).then((data) => data.json()),
+    [],
+  );
 
   useEffect(() => {
     getList().then(setList);
   }, [getList]);
 
-  return { list, getList };
+  return { list, getList, createDesign };
 };
 
 export default useDesigns;

@@ -10,3 +10,10 @@ export type TCard = {
   twitter?: string;
   profile: string;
 }
+
+export type CreateDesign = Omit<TCard, 'id'> & {
+  image?: {
+    name: string;
+    thumbUrl: string;
+  }
+};

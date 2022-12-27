@@ -9,8 +9,10 @@ export const CardContainer = styled.div`
   }
 
   .chapter-cards {
+    flex-wrap: wrap;
     display: flex;
-    gap: 60px;
+    gap: 100px;
+    justify-content: center;
   }
 `;
 

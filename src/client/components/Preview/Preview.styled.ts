@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const PreviewWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 30px;
+  padding-top: 10px;
   gap: 60px;
   align-items: center;
 `;
