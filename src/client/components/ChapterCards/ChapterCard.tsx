@@ -11,7 +11,7 @@ export interface IChapterCard {
 }
 
 type ChaptersCarsProps = IChapterCard & {
-  setSelect: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setSelect: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const ChapterCard: FC<ChaptersCarsProps> = ({

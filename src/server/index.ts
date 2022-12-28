@@ -80,12 +80,17 @@ app.use((req, res, next) => {
       const base64Data = req.body.image.thumbUrl.replace(/^data:image\/png;base64,/, '');
       fs.writeFileSync(`./src/server/public/assets/images/${fileName}`, base64Data, 'base64');
 
-      const { SERVER_STATIC_IMAGES, UNKNOWN_AVATAR } = process.env;
       req.body = {
         ...body,
-        image: `${SERVER_STATIC_IMAGES}/${fileName}` || UNKNOWN_AVATAR,
+        image: `${process.env.SERVER_STATIC_IMAGES}/${fileName}`,
       };
+      return next();
     }
+
+    req.body = {
+      ...body,
+      image: `${process.env.SERVER_STATIC_IMAGES}/unknown_avatar.png`,
+    };
   }
 
   next();

@@ -27,9 +27,10 @@ const CustomCol = styled(Col)`
 
 interface PreviewCadModalInterface {
   cardId: number;
+  setSelect: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const PreviewCadModal: FC<PreviewCadModalInterface> = ({ cardId }) => {
+const PreviewCadModal: FC<PreviewCadModalInterface> = ({ cardId, setSelect }) => {
   const { list } = useDesigns();
   const card = list.find((design) => design.id === cardId);
   const { showPreviewModal, hidePreviewModal } = useChapterCardContext();
@@ -50,6 +51,11 @@ const PreviewCadModal: FC<PreviewCadModalInterface> = ({ cardId }) => {
     window.open(_url);
   }, []);
 
+  const afterClose = () => {
+    hidePreviewModal();
+    setSelect(0);
+  };
+
   const onOk = () => {
     const query = document.getElementById('preview');
     if (query) {
@@ -62,7 +68,7 @@ const PreviewCadModal: FC<PreviewCadModalInterface> = ({ cardId }) => {
         }).catch(message.error);
     }
 
-    hidePreviewModal();
+    afterClose();
   };
 
   return (
@@ -79,7 +85,7 @@ const PreviewCadModal: FC<PreviewCadModalInterface> = ({ cardId }) => {
       destroyOnClose
       open={showPreviewModal}
       onOk={onOk}
-      onCancel={hidePreviewModal}
+      onCancel={afterClose}
     >
       <Row gutter={24}>
         <Col span={12}>

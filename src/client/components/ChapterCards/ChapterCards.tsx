@@ -2,14 +2,20 @@ import { FC, useState } from 'react';
 import ChapterCard, { IChapterCard } from './ChapterCard';
 import { CardContainer } from './ChapterCards.styled';
 import { CreateCardModal, PreviewCardModal } from './modal';
+import { useChapterCardContext } from '../../contexts';
 
 interface ChapterCardsInterface {
   title: string;
   products: IChapterCard[];
+  selected: number;
 }
 
-const ChapterCards: FC<ChapterCardsInterface> = ({ title, products }) => {
-  const [select, setSelect] = useState<number>();
+const ChapterCards: FC<ChapterCardsInterface> = ({ title, products, selected }) => {
+  const { setShowPreviewModal } = useChapterCardContext();
+  const [select, setSelect] = useState<number>(selected);
+  if (select) {
+    setShowPreviewModal(true);
+  }
 
   return (
     <>
@@ -31,7 +37,7 @@ const ChapterCards: FC<ChapterCardsInterface> = ({ title, products }) => {
       </CardContainer>
 
       <CreateCardModal />
-      {select && <PreviewCardModal cardId={select} />}
+      {select && <PreviewCardModal cardId={select} setSelect={setSelect} />}
     </>
   );
 };

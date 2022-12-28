@@ -25,7 +25,7 @@ const products: IChapterCard[] = [
 
 const Home: FC = () => (
   <Container>
-    <ChapterCards title="Product List" products={products} />
+    <ChapterCards title="Product List" products={products} selected={0} />
   </Container>
 );
 
