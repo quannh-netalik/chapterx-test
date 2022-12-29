@@ -37,7 +37,7 @@ const ChapterCards: FC<ChapterCardsInterface> = ({ title, products, selected }) 
       </CardContainer>
 
       <CreateCardModal />
-      {select && <PreviewCardModal cardId={select} setSelect={setSelect} />}
+      {select !== 0 && <PreviewCardModal cardId={select} setSelect={setSelect} />}
     </>
   );
 };

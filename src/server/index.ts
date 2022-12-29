@@ -66,6 +66,8 @@ const validate = (body: DesignCard & {
   };
 };
 
+app.get('/', (req, res) => res.send('Server started'));
+
 app.use((req, res, next) => {
   const { method } = req;
   const _path = req.path.split('/').pop();
